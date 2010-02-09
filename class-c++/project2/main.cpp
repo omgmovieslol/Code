@@ -1,0 +1,224 @@
+#include <iostream>
+#include <cstring> 
+#include <fstream>
+
+
+#define input_read 20
+  
+using namespace std;
+class Matrix       
+{
+ //  float *mat;
+  // int size; 
+ public:       
+      Matrix (void ){          // Constructor
+             //if(sizee=0) {
+                    cout<< "enter size of matrix\n";
+                    cin >> size;
+             //} else {
+             //       size = sizee;
+             //}
+             //cout << size;
+             mat= new float[size*size];
+      }
+      friend Matrix operator+(const Matrix&,const Matrix&);
+      friend Matrix operator*(const Matrix&,const Matrix&);
+      //friend Matrix operator=(const Matrix& source);
+      Matrix& Matrix::operator=(const Matrix& source);
+      float getmat(int i, int j){
+            return mat[i*size + j];
+      }
+       void putmat (int i, int j, float val){
+             mat[i*size+j]= val;
+       }
+       int getsize(void) {
+           return size;
+       }
+       void buildmat( void){
+            char file1[input_read];
+            cout<<"Enter the file name"<< endl;
+            cin>> file1;
+            ifstream input1(file1);
+            if (input1.fail()){
+               cout<< "error: could not find file"<< endl;
+               system("PAUSE");
+            exit(1);
+            }
+            
+            //cout << size;
+            
+            int m;
+            
+            for(int i=0; i<size; i++){
+                for(int j=0; j<size; j++) {
+                        m = i*size + j;
+                        //cout << m;
+                        input1>> mat[m];
+                        //cout << mat[m];
+                }
+
+            }
+       }
+            
+       void printmat(void){
+             for(int i=0; i<size; i++) {
+                     for(int j=0; j<size; j++) {
+                             cout << mat[i*size+j] << " ";
+                     }
+                     cout << "\n";
+             }
+             cout << "\n\n";
+       }
+       
+       void writemat(void) {
+            int m;
+            char fileout[input_read];
+            cout<<"Enter the file name to save the output"<< endl;
+            cin>> fileout;
+            ofstream output(fileout, ofstream::out);
+            if (output.fail()){
+               cout<< "error: could not output file"<< endl;
+               system("PAUSE");
+            exit(1);
+            }
+            for(int i=0; i<size; i++){
+                for(int j=0; j<size; j++) {
+                        m = i*size+j;
+                        //input1>> a[i][j];
+                        //cout<< a [i][j] << " ";
+                        output << mat [m] << " ";
+                    
+                }
+                //cout << "\n";
+                output << "\n";
+            } 
+            cout << "\nSaved\n\n";    
+            }
+       void add(Matrix mata, Matrix matb) {
+            //cout << mata.getsize() << "\n\n\n";
+            for(int i=0; i<size; i++) {
+                    for(int j=0; j < mata.getsize(); j++){
+                            //cout << mat[i*size+j] << "\n";
+                            //cout << mata.getmat(i,j) << "\n";
+                            float thingy = mat[i*size+j] + mata.getmat(i,j);
+                            //cout << thingy << "\n";
+                            matb.putmat(i, j, thingy);
+                    }
+            }
+       }
+       void mul(Matrix mata, Matrix matb) {
+            float sum=0;
+            int m,n,o;
+            for (int i=0;i<size;i++)
+            {
+                for (int j=0;j<size;j++)
+                {
+                    for (int k=0;k<size;k++) {
+                        n = i*size + k;
+                        o = k*size + j;
+                        sum=sum+(mat[n]*mata.getmat(k,j));
+                    }
+                    m = i*size + j;
+                    matb.putmat(i,j,sum);
+                    sum=0;
+                }
+            }
+       }
+                  
+       
+
+ private:       
+      float *mat;
+      int size;    
+   
+} ;
+
+Matrix operator + (const Matrix& A,const Matrix& B)
+{
+        Matrix C;
+        //cout << "boobies";
+        //cout << A.size;
+        for(int r=0;r<A.size;r++){
+                for(int c=0;c<A.size;c++) {
+                        C.mat[r*A.size + c] = A.mat[r*A.size+c]+B.mat[r*A.size+c];
+                        //cout << A.mat[r*A.size+c] << " ";
+                       // cout << C.getmat(r,c) << "\n";
+                }
+        }
+        return C;
+}
+Matrix operator * (const Matrix& A, const Matrix& B){
+        Matrix C;
+        float sum=0;
+        int m,n,o;
+        for (int i=0;i<A.size;i++)
+        {
+            for (int j=0;j<A.size;j++)
+            {
+                sum = 0;
+                for (int k=0;k<A.size;k++) {
+                    n = i*A.size + k;
+                    o = k*A.size + j;
+                    sum=sum+(A.mat[n]*B.mat[o]);
+                }
+                m = i*A.size + j;
+                C.mat[m] = sum;
+                //cout << sum << " ";
+            }
+            //cout << "\n";
+        }
+        return C;
+}
+
+Matrix& Matrix::operator = (const Matrix& source) {
+        for(int i=0; i<size*size; i++)
+                mat[i] = source.mat[i];
+        return (*this);
+}
+
+
+
+
+
+
+int main()
+{
+   int i,j;
+   float value;
+   
+   Matrix mata; 
+   mata.buildmat();
+   mata.printmat();
+   
+   Matrix matb;
+   matb.buildmat();
+   matb.printmat();
+   
+   /*Matrix matc;
+   Matrix matd;
+   
+   mata.add(matb, matc);
+   //mata.mul(matb, matd);
+   matc.writemat();
+   matc.printmat();
+   
+   mata.mul(matb, matd);
+   matd.writemat();
+   matd.printmat();*/
+   
+   Matrix matc;
+   
+   matc = mata + matb;
+   
+   matc.printmat();
+   
+   Matrix matd;
+   
+   matd = mata * matb;
+   
+   matd.printmat();
+   
+   
+    system("PAUSE");
+    return EXIT_SUCCESS;
+}
