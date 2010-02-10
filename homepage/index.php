@@ -7,14 +7,18 @@
 <body>
 <style type="text/css">
 #main {
+	padding-left: 20%;
 	font-size: 100%;
+	width: 60%;
 }
 
 #header {
-	border: 3px;
+	border: 3px solid #000;
+	padding: 5px;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	text-align: center;
+	width: 
 }
 
 .title {
