@@ -3,24 +3,82 @@
 
 using namespace std;
 //---------------------------//
-struct node
+struct stacknode
 { 
    char name[20];
    int age;
    float height;
-   node *nxt;
-   node *prev;
-   node *left;
+   stacknode *nxt;
+   stacknode *prev;
+   stacknode *left;
+};
+class Stack {
+        
+        public:
+               
+            //---------------------------//
+            Stack (void) {
+                  start_ptr=NULL;
+            }
+            //-----------------------------//
+            void pop()
+            {
+               stacknode *temp1,*temp2;
+              
+               if(start_ptr==NULL)
+               cout<<"The list is empty\n";
+             
+               else
+               {
+                  temp1=start_ptr;
+                  cout<<temp1->name<<", ";
+                     cout<<temp1->age<<", ";
+                     cout<<temp1->height<<" \n";;
+                     start_ptr=temp1->nxt;
+                }
+            }
+            //-----------------------------//
+            int isEmpty() 
+            {
+                if(start_ptr==NULL) {
+                    return 1;
+                } 
+                else {
+                     return 0;
+                }
+            }
+            void push ()
+            {
+                stacknode *temp;
+            
+                temp = new stacknode;
+                cout << "Please enter the name of the person: \n";
+                cin >> temp->name;
+                cout << "Please enter the age of the person: \n";
+                cin >> temp->age;
+                cout << "Please enter the height of the person: \n";
+                cin >> temp->height;
+                if (start_ptr == NULL)
+                {
+                   temp->nxt=NULL;
+                   start_ptr = temp;
+                }
+                else
+                {
+                   temp->nxt=start_ptr;
+                   start_ptr=temp;
+                }
+            }
+        
+        private:
+            stacknode *start_ptr;
 };
 
-node *start_ptr=NULL;
-//---------------------------//
 int main()
 {
-   void push ();
-   void pop();
    char ch;
    //clrscr();
+   Stack s;
    cout<<"-----STACK-----\n";
    //cout<<"-----";
    do
@@ -35,14 +93,18 @@ int main()
       switch(ch)
       {
          case 'P':
-         push();
+         s.push();
          break;
    
          case 'O':
-         pop();
+         s.pop();
          break;
    
          case 'E':
+              while(!s.isEmpty()) {
+                  s.pop();
+              }
+              system("PAUSE");
          exit(0);
       }
     }
@@ -52,44 +114,4 @@ int main()
   
    system("PAUSE");
    return EXIT_SUCCESS;
-}
-//-----------------------------//
-void pop()
-{
-   node *temp1,*temp2;
-  
-   if(start_ptr==NULL)
-   cout<<"The list is empty\n";
- 
-   else
-   {
-      temp1=start_ptr;
-      cout<<temp1->name<<", ";
-         cout<<temp1->age<<", ";
-         cout<<temp1->height<<" \n";;
-         start_ptr=temp1->nxt;
-    }
-}
-//-----------------------------//
-void push ()
-{
-    node *temp;
-
-    temp = new node;
-    cout << "Please enter the name of the person: \n";
-    cin >> temp->name;
-    cout << "Please enter the age of the person: \n";
-    cin >> temp->age;
-    cout << "Please enter the height of the person: \n";
-    cin >> temp->height;
-    if (start_ptr == NULL)
-    {
-       temp->nxt=NULL;
-       start_ptr = temp;
-    }
-    else
-    {
-       temp->nxt=start_ptr;
-       start_ptr=temp;
-    }
 }
