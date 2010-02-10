@@ -11,6 +11,7 @@
 	font-size: 100%;
 	width: 60%;
 	color: #121c26;
+	background-color: #304003b;
 }
 
 #header {
