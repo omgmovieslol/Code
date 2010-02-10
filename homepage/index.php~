@@ -11,7 +11,7 @@
 	font-size: 100%;
 	width: 60%;
 	color: #121c26;
-	background-color: #304003b;
+	background-color: #30403b;
 }
 
 #header {
@@ -20,7 +20,7 @@
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	text-align: center;
-	background-color: #000;
+	background-color: #30403b;
 }
 
 .title {
