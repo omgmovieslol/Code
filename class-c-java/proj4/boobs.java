@@ -4,18 +4,27 @@ import java.io.*;
 //node of the binary tree
 class bnode {   
   String key;
+  String first;
+  String age;
+  String id;
   bnode left;
   bnode right;
 
   bnode() {           
     key = null;
+    first = null;
+    age = null;
+    id = null;
     left = null;
     right = null;
   }
 
-  bnode(String key) {
+  bnode(String key, String first, String age, String id) {
 
     this.key = key;
+    this.first = first;
+    this.age = age;
+    this.id = id;
     left = null;
     right = null;
   }
@@ -27,11 +36,11 @@ class btree {
     root = null;
   }
 //insert a node into the tree
-  void put(String key) {
+  void put(String key, String first, String age, String id) {
     bnode current = root;
     bnode prev = current;
     if (root == null) {
-      root = new bnode(key);
+      root = new bnode(key, first, age, id);
     }
     else {
       boolean insert = false;
@@ -40,7 +49,7 @@ class btree {
         prev = current;
         if (key.compareTo(current.key) < 0) {
           if (current.left == null) {
-            current.left = new bnode(key);
+            current.left = new bnode(key, first, age, id);
             insert = true;
           }
           current = current.left;
@@ -48,7 +57,7 @@ class btree {
         }
         else {
           if (current.right == null) {
-            current.right = new bnode(key);
+            current.right = new bnode(key, first, age, id);
             insert = true;
           }
           current = current.right;
@@ -165,7 +174,7 @@ class btree {
     if (oot.left != null) {
       printIn(oot.left);
     }
-    System.out.println("--------" + oot.key + "----------");
+    System.out.println(oot.key + ", " + oot.first + " - " + oot.age + " - " + oot.id );
     if (oot.right != null) {
       printIn(oot.right);
     }
@@ -176,17 +185,58 @@ class btree {
     btree a = new btree();
     BufferedReader i = new BufferedReader(new InputStreamReader(System.in));
     while(true) {
-    	System.out.println("Input value: ");
-    	String text = "a";
+    	//System.out.println("Input value: ");
+    	int choice = 1;
+    	System.out.println("Pick one:\n1. Print All\n2. Insert\n3. Search\n4. Delete");
+    	String text = "a", first = "a", age = "a", id = "a";
     	try {
-    		text = i.readLine();
+    		choice = Integer.parseInt(i.readLine());
     	}
     	catch (IOException ioex) {
     		System.out.println("FFFFFUUUUUUUUUU");
     	}
-    	a.put(text);
+    	switch(choice) {
+    	case 1:
+    		a.printIn(a.root);
+    		break;
+    		
+    	case 2:
+    		
+        	try {
+        		System.out.println("Last name:");
+        		text = i.readLine();
+        		System.out.println("First name:");
+        		first = i.readLine();
+        		System.out.println("Age:");
+        		age = i.readLine();
+        		System.out.println("ID:");
+        		id = i.readLine();
+        		
+        		
+        	}
+        	catch (IOException ioex) {
+        		System.out.println("FFFFFUUUUUUUUUU");
+        	}
+        	a.put(text, first, age, id);
+        	
+        	break;
+    	case 3:
+    		
+    		break;
+    	case 4:
+    		try{
+    			System.out.println("Enter last name:");
+    			text = i.readLine();
+    			a.delete(text);
+    			
+    		}
+    		catch (IOException ioex) {
+        		System.out.println("FFFFFUUUUUUUUUU");
+        	}
+    	}
     	
-    	a.printIn(a.root);
+    	
+    	//a.printIn(a.root);
     	
     }
 
