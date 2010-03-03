@@ -189,7 +189,7 @@ class btree {
     }
   }
   void search(bnode oot, String key) {                  
-	    if(key == oot.key) {
+	    if(key.equals(oot.key)) {
 	    	System.out.println(oot.key + ", " + oot.first + " - " + oot.age + " - " + oot.id );
 	    }
 	    else {
