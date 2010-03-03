@@ -120,14 +120,23 @@ class btree {
       bnode temp = inord(current);
       if (current == root) {
         root.key = temp.key;
+        root.first = temp.first;
+        root.age = temp.age;
+        root.id = temp.id;
 
       }
       else {
         if (current.key.compareTo(prev.key) > 0) {
           prev.right.key = temp.key;
+          prev.right.first = temp.first;
+          prev.right.age = temp.age;
+          prev.right.id = temp.id;
         }
         else {
           prev.left.key = temp.key;
+          prev.left.first = temp.first;
+          prev.left.age = temp.age;
+          prev.left.id = temp.id;
         }
       }
     }
@@ -179,6 +188,21 @@ class btree {
       printIn(oot.right);
     }
   }
+  void search(bnode oot, String key) {                  
+	    if(key == oot.key) {
+	    	System.out.println(oot.key + ", " + oot.first + " - " + oot.age + " - " + oot.id );
+	    }
+	    else {
+	    	if (oot.left != null) {
+	  	      search(oot.left, key);
+	  	    }
+	  	    //System.out.println(oot.key + ", " + oot.first + " - " + oot.age + " - " + oot.id );
+	  	    if (oot.right != null) {
+	  	      search(oot.right, key);
+	  	    }
+	    }
+	  	
+	  }
 
   public static void main(String[] args) {
 
@@ -221,7 +245,15 @@ class btree {
         	
         	break;
     	case 3:
-    		
+    		try{
+    			System.out.println("Enter last name:");
+    			text = i.readLine();
+    			a.search(a.root, text);
+    			
+    		}
+    		catch (IOException ioex) {
+        		System.out.println("FFFFFUUUUUUUUUU");
+        	}
     		break;
     	case 4:
     		try{
