@@ -6,6 +6,6 @@
 # and not have to run mpc play after each pause/play
 while true; do
 mpc play
-sleep 3
+sleep 5
 done
 
